@@ -107,6 +107,10 @@ public class Model {
         return text;
     }
 
+    public boolean emptyModel() {
+        return model.isEmpty();
+    }
+
     class Key {
         private String key1;
         private String key2;

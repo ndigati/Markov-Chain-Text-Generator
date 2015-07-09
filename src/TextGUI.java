@@ -106,7 +106,11 @@ public class TextGUI extends Application {
             @Override
             public void handle(ActionEvent event) {
                 actionTarget.setFill(Color.FIREBRICK);
-                actionTarget.setText(Utils.capitalizeFirstLetter(model.generateText(30)));
+                try {
+                    actionTarget.setText(Utils.capitalizeFirstLetter(model.generateText(30)));
+                } catch (IllegalArgumentException e) {
+                    actionTarget.setText("Model has not been generated. Please select a valid file or use Reddit comments");
+                }
             }
         });
 
