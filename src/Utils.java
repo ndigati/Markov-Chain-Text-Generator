@@ -8,11 +8,7 @@ import java.nio.file.Paths;
  */
 public class Utils {
     /*public static void main(String[] args) throws IOException {
-
-        Model m = new Model();
-        String text = readFile("./Modest Proposal.txt", Charset.defaultCharset());
-        m.generateModel(text);
-        System.out.println(m.generateText(25));
+        runPythonScript("test");
     }*/
 
     /**
@@ -32,5 +28,13 @@ public class Utils {
         StringBuilder newString = new StringBuilder(text);
         newString.setCharAt(0, Character.toUpperCase(text.charAt(0)));
         return newString.toString();
+    }
+
+    public static void runPythonScript(String scriptName) {
+        try {
+            Process p = Runtime.getRuntime().exec(new String[]{"python3", scriptName + ".py"});
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
