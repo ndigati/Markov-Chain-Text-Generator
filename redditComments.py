@@ -2,7 +2,7 @@ __author__ = 'ndigati'
 
 import praw
 
-r = praw.Reddit('Reddit comment grabber by /u/Crazy_duck28')
+r = praw.Reddit('Reddit comment grabber')
 
 def get_comments(subreddit='programming', num=5):
     comments = []
