@@ -1,4 +1,4 @@
-import java.io.IOException;
+import java.io.*;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -30,9 +30,13 @@ public class Utils {
         return newString.toString();
     }
 
-    public static void runPythonScript(String scriptName) {
+    public static void runPythonScript(String scriptName, String subreddit) {
         try {
-            Process p = Runtime.getRuntime().exec(new String[]{"python3", scriptName + ".py"});
+            if (subreddit == null || subreddit.equals("")) {
+                Process p = Runtime.getRuntime().exec(new String[]{"python3", scriptName + ".py"});
+            } else {
+                Process p = Runtime.getRuntime().exec(new String[]{"python3", scriptName + ".py " + subreddit});
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }

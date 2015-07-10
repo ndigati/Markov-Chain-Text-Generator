@@ -62,6 +62,7 @@ public class TextGUI extends Application {
         hbBtn1.getChildren().add(redditButton);
         grid.add(hbBtn1, 0, 2, 2, 1);
 
+        // Open File button action
         openButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
@@ -84,6 +85,7 @@ public class TextGUI extends Application {
             }
         });
 
+        // Get Reddit comments button action
         redditButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
@@ -123,9 +125,15 @@ public class TextGUI extends Application {
 
                         stage.close();
 
-                        //TODO: Add support for running python script
-                        //TODO: And generating the model for those gathered comments.
-                        System.out.println(subreddit);
+                        Utils.runPythonScript("redditComments", subreddit);
+
+                        try {
+                            String text = Utils.readFile(System.getProperty("user.dir") + "/comments.txt", Charset.defaultCharset());
+                            text = text.replace(" , ", " ");
+                            model.generateModel(text);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
                     }
                 });
 
@@ -147,6 +155,7 @@ public class TextGUI extends Application {
         grid.add(actionTarget, 0, 10, 2, 1);
 
 
+        // Generate Markov Chain text button action
         btn.setOnAction(new EventHandler<ActionEvent>() {
 
             @Override

@@ -12,7 +12,6 @@
 hs_err_pid*
 
 *.txt
-*.py
 
 .idea/
 *.iml
