@@ -21,6 +21,8 @@ import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.charset.Charset;
 
@@ -30,6 +32,18 @@ public class TextGUI extends Application {
 
     public static void main(String[] args) {
         launch(args);
+
+        try {
+            File file = new File(System.getProperty("user.dir") + "/comments.txt");
+
+            if (file.delete()) {
+                System.out.println("File deleted");
+            } else {
+                System.out.println("File not deleted!!");
+            }
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -126,11 +140,16 @@ public class TextGUI extends Application {
                         stage.close();
 
                         Utils.runPythonScript("redditComments", subreddit);
+                        File commentFile = new File(System.getProperty("user.dir") + "/comments.txt");
+                        while (!commentFile.exists() && !commentFile.isDirectory()) {}
+                        String path = commentFile.getAbsolutePath();
+                        System.out.println("File has been created at: " + path);
 
                         try {
-                            String text = Utils.readFile(System.getProperty("user.dir") + "/comments.txt", Charset.defaultCharset());
+                            String text = Utils.readFile(path, Charset.defaultCharset());
                             text = text.replace(" , ", " ");
                             model.generateModel(text);
+                            userTextField.setText("Finished gathering comments!");
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
@@ -162,7 +181,7 @@ public class TextGUI extends Application {
             public void handle(ActionEvent event) {
                 actionTarget.setFill(Color.FIREBRICK);
                 try {
-                    actionTarget.setText(Utils.capitalizeFirstLetter(model.generateText(30)));
+                    actionTarget.setText(Utils.capitalizeFirstLetter(model.generateText(15)));
                 } catch (IllegalArgumentException e) {
                     actionTarget.setText("Model has not been generated. Please select a valid file or use Reddit comments");
                 }

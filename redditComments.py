@@ -1,10 +1,13 @@
 __author__ = 'ndigati'
 
 import praw
+import re
+import sys
 
-r = praw.Reddit('Reddit comment grabber')
+r = praw.Reddit('Reddit comment grabber by /u/Crazy_duck28')
 
 def get_comments(subreddit='programming', num=5):
+    print(subreddit)
     comments = []
     subreddit = r.get_subreddit(subreddit)
     for submission in subreddit.get_hot(limit=num):
@@ -32,6 +35,13 @@ def export_to_json(comments, filename):
             file.write(comment.replace('\n', " ") + " , ")
 
 if __name__ == "__main__":
-    comments = get_comments()
+    comments = []
+    if len(sys.argv) < 2:
+        comments = get_comments()
+    elif len(sys.argv) > 2:
+        print("Too many command line arguments!")
+        sys.exit(0)
+    else:
+        comments = get_comments(sys.argv[1])
     export_to_json(comments, "./comments.txt")
 
