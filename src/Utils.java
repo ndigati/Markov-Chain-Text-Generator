@@ -32,10 +32,11 @@ public class Utils {
 
     public static void runPythonScript(String scriptName, String subreddit) {
         try {
+            scriptName = scriptName.concat(".py");
             if (subreddit == null || subreddit.equals("")) {
-                Process p = Runtime.getRuntime().exec(new String[]{"python3", scriptName + ".py"});
+                Process p = Runtime.getRuntime().exec(new String[]{"python3", scriptName});
             } else {
-                Process p = Runtime.getRuntime().exec(new String[]{"python3", scriptName + ".py " + subreddit});
+                Process p = Runtime.getRuntime().exec(new String[]{"python3", scriptName, subreddit});
             }
         } catch (IOException e) {
             e.printStackTrace();

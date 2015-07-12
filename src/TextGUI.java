@@ -29,20 +29,23 @@ import java.nio.charset.Charset;
 public class TextGUI extends Application {
 
     Model model = new Model();
+    static boolean debug = false;
 
     public static void main(String[] args) {
         launch(args);
 
-        try {
-            File file = new File(System.getProperty("user.dir") + "/comments.txt");
+        if (!debug) {
+            try {
+                File file = new File(System.getProperty("user.dir") + "/comments.txt");
 
-            if (file.delete()) {
-                System.out.println("File deleted");
-            } else {
-                System.out.println("File not deleted!!");
+                if (file.delete()) {
+                    System.out.println("File deleted");
+                } else {
+                    System.out.println("File not deleted!!");
+                }
+            } catch (NullPointerException e) {
+                e.printStackTrace();
             }
-        } catch (NullPointerException e) {
-            e.printStackTrace();
         }
     }
 
@@ -100,67 +103,61 @@ public class TextGUI extends Application {
         });
 
         // Get Reddit comments button action
-        redditButton.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                userTextField.setText("Gathering reddit comments!");
+        redditButton.setOnAction(event -> {
+            userTextField.setText("Gathering reddit comments!");
 
-                Stage stage = new Stage();
-                stage.setTitle("Choose Subreddit");
+            Stage stage = new Stage();
+            stage.setTitle("Choose Subreddit");
 
-                GridPane grid = new GridPane();
-                grid.setAlignment(Pos.TOP_CENTER);
-                grid.setHgap(10);
-                grid.setVgap(10);
-                grid.setPadding(new Insets(25, 25, 25, 25));
+            GridPane grid1 = new GridPane();
+            grid1.setAlignment(Pos.TOP_CENTER);
+            grid1.setHgap(10);
+            grid1.setVgap(10);
+            grid1.setPadding(new Insets(25, 25, 25, 25));
 
-                Text sceneTitle = new Text("Choose a subreddit to get comments from:");
-                sceneTitle.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
-                grid.add(sceneTitle, 0, 0, 2, 1);
+            Text sceneTitle1 = new Text("Choose a subreddit to get comments from:");
+            sceneTitle1.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
+            grid1.add(sceneTitle1, 0, 0, 2, 1);
 
-                TextField subredditName = new TextField();
-                grid.add(subredditName, 0, 1);
+            TextField subredditName = new TextField();
+            grid1.add(subredditName, 0, 1);
 
-                Button btn = new Button("Enter");
-                HBox hbBtn = new HBox(10);
-                hbBtn.setAlignment(Pos.CENTER_RIGHT);
-                hbBtn.getChildren().add(btn);
-                grid.add(hbBtn, 1, 1);
+            Button btn = new Button("Enter");
+            HBox hbBtn = new HBox(10);
+            hbBtn.setAlignment(Pos.CENTER_RIGHT);
+            hbBtn.getChildren().add(btn);
+            grid1.add(hbBtn, 1, 1);
 
-                btn.setOnAction(new EventHandler<ActionEvent>() {
-                    @Override
-                    public void handle(ActionEvent event) {
-                        String subreddit;
-                        try {
-                            subreddit = subredditName.getText();
-                        } catch (NullPointerException e) {
-                            subreddit = null;
-                        }
+            btn.setOnAction(event1 -> {
+                String subreddit;
+                try {
+                    subreddit = subredditName.getText();
+                } catch (NullPointerException e) {
+                    subreddit = null;
+                }
 
-                        stage.close();
+                stage.close();
 
-                        Utils.runPythonScript("redditComments", subreddit);
-                        File commentFile = new File(System.getProperty("user.dir") + "/comments.txt");
-                        while (!commentFile.exists() && !commentFile.isDirectory()) {}
-                        String path = commentFile.getAbsolutePath();
-                        System.out.println("File has been created at: " + path);
+                Utils.runPythonScript("redditComments", subreddit);
+                File commentFile = new File(System.getProperty("user.dir") + "/comments.txt");
+                while (!commentFile.exists() && !commentFile.isDirectory()) {}
+                String path = commentFile.getAbsolutePath();
+                System.out.println("File has been created at: " + path);
 
-                        try {
-                            String text = Utils.readFile(path, Charset.defaultCharset());
-                            text = text.replace(" , ", " ");
-                            model.generateModel(text);
-                            userTextField.setText("Finished gathering comments!");
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                });
+                try {
+                    String text = Utils.readFile(path, Charset.defaultCharset());
+                    text = text.replace(" , ", " ");
+                    model.generateModel(text);
+                    userTextField.setText("Finished gathering comments!");
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            });
 
-                Scene scene = new Scene(grid, 500, 200);
-                stage.setScene(scene);
+            Scene scene = new Scene(grid1, 500, 200);
+            stage.setScene(scene);
 
-                stage.show();
-            }
+            stage.show();
         });
 
         Button btn = new Button("Generate Text");
@@ -175,16 +172,12 @@ public class TextGUI extends Application {
 
 
         // Generate Markov Chain text button action
-        btn.setOnAction(new EventHandler<ActionEvent>() {
-
-            @Override
-            public void handle(ActionEvent event) {
-                actionTarget.setFill(Color.FIREBRICK);
-                try {
-                    actionTarget.setText(Utils.capitalizeFirstLetter(model.generateText(15)));
-                } catch (IllegalArgumentException e) {
-                    actionTarget.setText("Model has not been generated. Please select a valid file or use Reddit comments");
-                }
+        btn.setOnAction(event -> {
+            actionTarget.setFill(Color.FIREBRICK);
+            try {
+                actionTarget.setText(Utils.capitalizeFirstLetter(model.generateText(15)));
+            } catch (IllegalArgumentException e) {
+                actionTarget.setText("Model has not been generated. Please select a valid file or use Reddit comments");
             }
         });
 
