@@ -31,6 +31,7 @@ def export_to_json(comments, filename):
         file.truncate()
 
         for comment in comments:
+            # Regular expression to remove links from comments
             comment = re.sub(r'(https?://.*[\r\n]*)', '', comment)
             file.write(comment.replace('\n', " ") + " , ")
 

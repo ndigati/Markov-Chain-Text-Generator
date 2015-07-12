@@ -4,6 +4,9 @@ Includes a basic GUI made using JavaFX.
 
 ## Details
 - Made using Java 8 (not tested on other versions)
+- Uses Python script to gather comments from Reddit to generate markov chain model
+    - Tested using Python 3
+    - Requires PRAW library
 - Basic text generation so output might not be the best
 - Can generate a model based on two methods
     1. A local .txt file on the users system

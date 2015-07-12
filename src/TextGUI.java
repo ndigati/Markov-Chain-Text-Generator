@@ -80,25 +80,20 @@ public class TextGUI extends Application {
         grid.add(hbBtn1, 0, 2, 2, 1);
 
         // Open File button action
-        openButton.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                String text;
+        openButton.setOnAction(event -> {
+            String text;
+            try {
+                String path;
                 try {
-                    // TODO: Use python script for grabbing reddit comments to generate the model
-                    // TODO: If the user doesn't want to specify their own model text
-                    String path;
-                    try {
-                        path = fileChooser.showOpenDialog(primaryStage).getPath();
-                        text = Utils.readFile(path, Charset.defaultCharset());
-                        model.generateModel(text);
-                        userTextField.setText(path);
-                    } catch (NullPointerException e) {
-                        path = null;
-                    }
-                } catch (IOException e) {
-                    e.printStackTrace();
+                    path = fileChooser.showOpenDialog(primaryStage).getPath();
+                    text = Utils.readFile(path, Charset.defaultCharset());
+                    model.generateModel(text);
+                    userTextField.setText(path);
+                } catch (NullPointerException e) {
+                    path = null;
                 }
+            } catch (IOException e) {
+                e.printStackTrace();
             }
         });
 
