@@ -9,6 +9,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
@@ -131,7 +132,8 @@ public class TextGUI extends Application {
 
                 Utils.runPythonScript("redditComments", subreddit);
                 File commentFile = new File(System.getProperty("user.dir") + "/comments.txt");
-                while (!commentFile.exists() && !commentFile.isDirectory()) {}
+                while (!commentFile.exists() && !commentFile.isDirectory()) {
+                }
                 String path = commentFile.getAbsolutePath();
                 System.out.println("File has been created at: " + path);
 
@@ -142,6 +144,12 @@ public class TextGUI extends Application {
                     userTextField.setText("Finished gathering comments!");
                 } catch (IOException e) {
                     e.printStackTrace();
+                }
+            });
+
+            subredditName.setOnKeyPressed(keyEvent -> {
+                if (keyEvent.getCode().equals(KeyCode.ENTER)) {
+                    btn.fire();
                 }
             });
 
