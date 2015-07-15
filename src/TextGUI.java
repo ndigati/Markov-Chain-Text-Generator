@@ -22,6 +22,7 @@ import javafx.stage.Stage;
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.Charset;
+import java.util.ArrayList;
 
 public class TextGUI extends Application {
 
@@ -29,6 +30,12 @@ public class TextGUI extends Application {
     static boolean debug = false;
 
     public static void main(String[] args) {
+        ArrayList<String> s = new ArrayList<>();
+        s.add("hello");
+        s.add("world");
+        String t = String.join(" ", s);
+        System.out.println(t);
+
         launch(args);
 
         if (!debug) {
@@ -179,7 +186,7 @@ public class TextGUI extends Application {
         btn.setOnAction(event -> {
             actionTarget.setFill(Color.FIREBRICK);
             try {
-                actionTarget.setText(Utils.capitalizeFirstLetter(model.generateText(15)));
+                actionTarget.setText(Utils.capitalizeFirstLetter(model.generateText(20)));
             } catch (IllegalArgumentException e) {
                 actionTarget.setText("Model has not been generated. Please select a valid file or use Reddit comments");
             }
