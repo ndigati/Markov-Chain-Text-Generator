@@ -6,6 +6,7 @@ import sys
 
 r = praw.Reddit('Reddit comment grabber by /u/Crazy_duck28')
 
+
 def get_comments(subreddit='programming', num=5):
     print(subreddit)
     comments = []
@@ -25,15 +26,27 @@ def get_comments(subreddit='programming', num=5):
     return comments
 
 
-def export_to_json(comments, filename):
+def export_to_file(comments, filename):
     with open(filename, "a+") as file:
         file.seek(0)
         file.truncate()
 
         for comment in comments:
-            # Regular expression to remove links from comments
+            # Regular expression to find all the comments that have links
+            # Remove those links from the comment
             comment = re.sub(r'(https?://.*[\r\n]*)', '', comment)
-            file.write(comment.replace('\n', " ") + " , ")
+
+            # Remove extra formatting from reddit comments
+            comment = comment.replace('*', '').replace('^', '').replace('-', '')
+
+            # Remove excess whitespace from the comment
+            comment = ' '.join(comment.split())
+
+            # Remove usernames from comments
+            comment = re.sub(r'(\[/u/.+\])|(/u/.+ )', '', comment)
+
+            # Enclose comment in ' {{ ' and ' }} ' to separate comments in the resulting file
+            file.write("{{ " + comment + " }} ")
 
 if __name__ == "__main__":
     comments = []
@@ -44,5 +57,4 @@ if __name__ == "__main__":
         sys.exit(0)
     else:
         comments = get_comments(sys.argv[1])
-    export_to_json(comments, "./comments.txt")
-
+    export_to_file(comments, "./comments.txt")
