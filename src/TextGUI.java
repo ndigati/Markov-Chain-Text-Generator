@@ -145,6 +145,7 @@ public class TextGUI extends Application {
                 System.out.println("File has been created at: " + path);
 
                 try {
+                    //TODO: Updated the way comments are separated in the text file, so update to reflect change.
                     String text = Utils.readFile(path, Charset.defaultCharset());
                     text = text.replace(" , ", " ");
                     model.generateModel(text);
