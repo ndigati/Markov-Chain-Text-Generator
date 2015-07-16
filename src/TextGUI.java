@@ -139,8 +139,7 @@ public class TextGUI extends Application {
 
                 Utils.runPythonScript("redditComments", subreddit);
                 File commentFile = new File(System.getProperty("user.dir") + "/comments.txt");
-                while (!commentFile.exists() && !commentFile.isDirectory()) {
-                }
+                while (!commentFile.exists() && !commentFile.isDirectory()) {}
                 String path = commentFile.getAbsolutePath();
                 System.out.println("File has been created at: " + path);
 
@@ -187,7 +186,7 @@ public class TextGUI extends Application {
         btn.setOnAction(event -> {
             actionTarget.setFill(Color.FIREBRICK);
             try {
-                actionTarget.setText(Utils.capitalizeFirstLetter(model.generateText(20)));
+                actionTarget.setText(Utils.capitalizeFirstLetter(model.generateOneToOneText(20)));
             } catch (IllegalArgumentException e) {
                 actionTarget.setText("Model has not been generated. Please select a valid file or use Reddit comments");
             }
