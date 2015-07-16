@@ -12,6 +12,7 @@ public class Model {
      * @param text String used to generate the model
      */
     public void generateModel(String text) {
+        // TODO: Need a way of detecting beginning of sentences to add those words to '{{' list
         String[] txt = text.split(" ");
         for (int i = 0; i < txt.length; i++) {
             boolean inBounds = (i+1 >= 0) && (i+1 < txt.length);
@@ -64,7 +65,7 @@ public class Model {
     // 2. Choose a random value that occurs after the ' {{ ' (this will be the start of sentence, capitalize if needed)
     // 3. If it encounters a word that ends in a period, choose a new word from the list of sentence starters (' {{ ')
     // 4. Continue until the max number of words it reached
-    public String generateOneToOneText(int numWords) {
+    public String generateText(int numWords) {
         boolean beginningOfSentence = true;
         StringBuilder text = new StringBuilder();
         String firstWord = "";
