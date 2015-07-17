@@ -12,6 +12,8 @@ public class Model {
      * @param text String used to generate the model
      */
     public void generateModel(String text) {
+        // Regex to find beginning of sentences
+        // [\.\!\?]\s+[A-Z]
         // TODO: Need a way of detecting beginning of sentences to add those words to '{{' list
         String[] txt = text.split(" ");
         for (int i = 0; i < txt.length; i++) {
