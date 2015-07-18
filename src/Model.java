@@ -17,9 +17,9 @@ public class Model {
         // Regex to find beginning of sentences
         // [\.\!\?]\s+[A-Z]
         // TODO: Need a way of detecting beginning of sentences to add those words to '{{' list
-        text = text.replaceAll("[\\.]\\s+", ". {{ ");
-        text = text.replaceAll("[!]\\s+", "! {{ ");
-        text = text.replaceAll("[\\?]\\s+", "? {{ ");
+        text = text.replaceAll("[\\.]\\s+[^{{]", ". {{ ");
+        text = text.replaceAll("[!]\\s+[^{{]", "! {{ ");
+        text = text.replaceAll("[\\?]\\s+[^{{]", "? {{ ");
 
         String[] txt = text.split(" ");
         for (int i = 0; i < txt.length; i++) {
