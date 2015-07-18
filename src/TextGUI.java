@@ -139,7 +139,7 @@ public class TextGUI extends Application {
                 try {
                     //TODO: Updated the way comments are separated in the text file, so update to reflect change.
                     String text = Utils.readFile(path, Charset.defaultCharset());
-                    text = text.replace(" , ", " ");
+                    text = text.replace(" }} ", " ");
                     model.generateModel(text);
                     userTextField.setText("Finished gathering comments!");
                 } catch (IOException e) {

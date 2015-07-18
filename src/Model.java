@@ -1,4 +1,6 @@
 import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Created by ndigati on 7/4/15.
@@ -15,6 +17,10 @@ public class Model {
         // Regex to find beginning of sentences
         // [\.\!\?]\s+[A-Z]
         // TODO: Need a way of detecting beginning of sentences to add those words to '{{' list
+        text = text.replaceAll("[\\.]\\s+", ". {{ ");
+        text = text.replaceAll("[!]\\s+", "! {{ ");
+        text = text.replaceAll("[\\?]\\s+", "? {{ ");
+
         String[] txt = text.split(" ");
         for (int i = 0; i < txt.length; i++) {
             boolean inBounds = (i+1 >= 0) && (i+1 < txt.length);

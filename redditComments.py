@@ -37,7 +37,7 @@ def export_to_file(comments, filename):
             comment = re.sub(r'(https?://.*[\r\n]*)', '', comment)
 
             # Remove extra formatting from reddit comments
-            comment = comment.replace('*', '').replace('^', '').replace('-', '')
+            comment = comment.replace('*', '').replace('^', '').replace('-', '').replace('>', '')
 
             # Remove excess whitespace from the comment
             comment = ' '.join(comment.split())
