@@ -45,8 +45,7 @@ def export_to_file(comments, filename):
             # Remove usernames from comments
             comment = re.sub(r'(\[/u/.+\])|(/u/.+ )', '', comment)
 
-            # Enclose comment in ' {{ ' and ' }} ' to separate comments in the resulting file
-            file.write("{{ " + comment + " }} ")
+            file.write(comment + " ")
 
 if __name__ == "__main__":
     comments = []

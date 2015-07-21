@@ -59,9 +59,9 @@ public class Model {
 
     public boolean containsKey(String key) { return model.containsKey(key); }
 
-    public static void main(String[] args) {
+    /*public static void main(String[] args) {
         Model m = new Model();
         m.generateModel("The quick brown fox jumped over the lazy dog, who went to go eat the fox.");
         System.out.println(m.generateText(8));
-    }
+    }*/
 }
