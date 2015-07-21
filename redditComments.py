@@ -7,7 +7,7 @@ import sys
 r = praw.Reddit('Reddit comment grabber by /u/Crazy_duck28')
 
 
-def get_comments(subreddit='programming', num=5):
+def get_comments(subreddit='askreddit', num=5):
     print(subreddit)
     comments = []
     subreddit = r.get_subreddit(subreddit)
