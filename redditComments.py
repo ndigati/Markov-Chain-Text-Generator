@@ -7,7 +7,7 @@ import sys
 r = praw.Reddit('Reddit comment grabber by /u/Crazy_duck28')
 
 
-def get_comments(subreddit='programming', num=5):
+def get_comments(subreddit='askreddit', num=5):
     print(subreddit)
     comments = []
     subreddit = r.get_subreddit(subreddit)
@@ -45,8 +45,7 @@ def export_to_file(comments, filename):
             # Remove usernames from comments
             comment = re.sub(r'(\[/u/.+\])|(/u/.+ )', '', comment)
 
-            # Enclose comment in ' {{ ' and ' }} ' to separate comments in the resulting file
-            file.write("{{ " + comment + " }} ")
+            file.write(comment + " \n ")
 
 if __name__ == "__main__":
     comments = []
