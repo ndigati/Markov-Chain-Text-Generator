@@ -4,7 +4,7 @@ Includes a basic GUI made using JavaFX.
 
 ## Details
 - Made using Java 8 (not tested on other versions)
-    - Uses [Google's Guava][https://github.com/google/guava] library
+    - Uses [Google's Guava](https://github.com/google/guava) library
 - Uses Python script to gather comments from Reddit to generate markov chain model
     - Tested using Python 3
     - Requires PRAW library
