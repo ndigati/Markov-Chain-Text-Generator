@@ -1,3 +1,4 @@
+package main;
 /**
  * Created by ndigati on 7/8/15.
  */
@@ -28,7 +29,7 @@ public class TextGUI extends Application {
     Model model = new Model();
     static boolean debug = false;
 
-    public static void main(String[] args) {
+    /*public static void main(String[] args) {
         launch(args);
 
         if (!debug) {
@@ -44,7 +45,7 @@ public class TextGUI extends Application {
                 e.printStackTrace();
             }
         }
-    }
+    }*/
 
     @Override
     public void start(Stage primaryStage) {

@@ -1,3 +1,5 @@
+package main;
+
 import java.io.*;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
@@ -14,6 +16,7 @@ public class Utils {
     /**
      * Function to convert a .txt file into a Java String
      * String can then be used in models generateModel() method
+     *
      * @param path Path to .txt file
      * @param encoding Encoding you want to use on the String
      * @return String representation of the .txt file
@@ -25,6 +28,10 @@ public class Utils {
     }
 
     public static String capitalizeFirstLetter(String text) {
+        if (text == null || text.length() == 0) {
+            return "";
+        }
+
         StringBuilder newString = new StringBuilder(text);
         newString.setCharAt(0, Character.toUpperCase(text.charAt(0)));
         return newString.toString();
