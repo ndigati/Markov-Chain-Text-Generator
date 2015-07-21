@@ -33,13 +33,14 @@ public class Model {
         if (model.size() == 0) {
             return "";
         }
+
         Random random = new Random();
         StringBuilder sentence = new StringBuilder();
         String storeWord = "";
 
         for (int i = 0; i < numWords - 1; i++) {
             ArrayList<String> values;
-            if (storeWord.equals("")) {
+            if (storeWord.equals("") || !model.containsKey(storeWord)) {
                 ArrayList<String> keys = new ArrayList<>(model.keySet());
                 String firstWord = keys.get(random.nextInt(keys.size()));
                 values = new ArrayList<>(model.get(firstWord));
@@ -50,7 +51,6 @@ public class Model {
                 storeWord = values.get(random.nextInt(values.size()));
                 sentence.append(storeWord).append(" ");
             }
-
         }
         return sentence.toString();
     }
@@ -61,6 +61,7 @@ public class Model {
 
     public static void main(String[] args) {
         Model m = new Model();
-        m.generateModel("Hello World.");
+        m.generateModel("The quick brown fox jumped over the lazy dog, who went to go eat the fox.");
+        System.out.println(m.generateText(8));
     }
 }
